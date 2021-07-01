@@ -3,14 +3,22 @@ from p5 import *
 class Spaceship:
 
   def __init__(self, width, height):
-    self.shipImg = load_image('./assets/ship.png');
-    self.size = 50;
-    self.window_width = width;
+    self.shipImg = load_image('./assets/ship.png')
+    self.size = 50
+    self.window_width = width
   
-    self.posX = width/2;
-    self.posY = 5*height/6;
+    self.posX = width/2
+    self.posY = 5*height/6
     
-    self.vel = 6;
+    self.vel = 6
+
+  def hits(self, enemy):
+    dx = abs(self.posX - enemy.posX)
+    dy = abs(self.posY - enemy.posY) 
+    threshold = enemy.size/2 + self.size/2
+    if dx < threshold and dy < threshold:
+      return True
+    return False
 
   def update(self):
     # Move right if 'D' or '->' is pressed 

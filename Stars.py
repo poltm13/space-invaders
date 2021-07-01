@@ -1,36 +1,40 @@
 from p5 import *
+from random import randint
 
 class Stars: 
-    def __init__(self):
-        self.number = 30
+    def __init__(self, width, height):
+        self.number = 10
         self.stars = []
 
-        #for i in self.number:
-           # MIRAR
-           # self.stars.push(new Star())
+        # Init stars
+        for i in range(self.number):
+           self.stars.append(Star(width, height))
    
     def update(self):
-        for i in len(self.stars):
-            self.stars[i].update()
-            self.stars[i].render()
+        # Update each star
+        for star in self.stars:
+            star.update()
+            star.render()
 
 # ---------------------------------------------------------------------
+
 class Star:
 
     def __init__(self, width, height):
-        self.size = random(1, 4)
-        self.posX = random(0, width)
-        self.posY = random(-height, height)
-        self.vel = random(3, 20)
+        # Store init values
+        self.window_height = height
+        self.size = randint(1, 4)
+        self.posX = randint(0, width)
+        self.posY = randint(0, height)
+        self.vel = randint(3, 20)
     
-    #def update(self):
-        # esta no sé como cambiar lo del ?
-        # self.posY = (self.posY + self.vel < height) ? self.posY + self.vel : -height
-    
-    def render(self): 
-        push()
+    def update(self):
+        # Update star pos if it's inside the window
+        self.posY = self.posY + self.vel if (self.posY < self.window_height) else  0
+        
+    def render(self):
+        # Render white point of weight size 
         stroke(255)
-        strokeWeight(self.size)
+        stroke_weight(self.size)
         point(self.posX, self.posY)
-        pop()
     
