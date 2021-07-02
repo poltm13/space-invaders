@@ -2,11 +2,12 @@ from p5 import *
 
 class Laser:
 
-  def __init__(self, x0, y0):
+  def __init__(self, x0, y0, height):
     self.posX = x0
     self.posY = y0
     self.vel = -20
     self.size = 20
+    self.window_height = height
 
   def update(self):
     self.posY += self.vel
@@ -30,4 +31,4 @@ class Laser:
 
 
   def offScreen(self):
-    return self.posY > 690 or self.posY < 0
+    return self.posY > self.window_height or self.posY < 0

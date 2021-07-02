@@ -5,7 +5,7 @@ from Enemy import Enemy
 from Laser import Laser
 from random import randint
 
-height = 690
+height = 800
 width = 600
 start = False
 gameOver = False
@@ -13,11 +13,14 @@ lasers = []
 enemies = []
 spaceship = None
 stars = None
+frame = 0
+time = 0
 
 shipImg = None
 startImg = None
 spaceInvImg = None
 gameOverImg = None
+explosionImages = []
 
 def imagesPreload():
   global startImg
@@ -28,6 +31,10 @@ def imagesPreload():
 
   global gameOverImg
   gameOverImg = load_image('./assets/GameOver.png')
+
+  global explosionImg
+  for i in range(12):
+    explosionImages.append(load_image('./assets/explosion/' + str(i) + '.png'))
 
 def setup():
   # Creates window
@@ -45,10 +52,12 @@ def setup():
 
   
 def draw():
+  global gameOver
   # Sets black background
   background(0)
 
-  spaceship.update()
+  if not gameOver:
+    spaceship.update()
   spaceship.render()
   stars.update()
 
@@ -68,8 +77,8 @@ def draw():
     enemy.render()
 
     if spaceship.hits(enemy) or enemy.offScreen():
-      global gameOver
       gameOver = True
+
 
   game()
 
@@ -78,7 +87,8 @@ def key_pressed():
   global start
 
   if key == ' ':
-    lasers.append(Laser(spaceship.posX, spaceship.posY - spaceship.size/2))
+    if not gameOver:
+      lasers.append(Laser(spaceship.posX, spaceship.posY - spaceship.size/2, height))
   elif (key == 's' or key == 'S') and not gameOver:
     start = True
     loop()
@@ -91,9 +101,13 @@ def game():
     no_loop()
     image(spaceInvImg, (width/2, height/3))
     image(startImg, (width/2, height/2))
+    
   elif gameOver:
-    no_loop()
     image(gameOverImg, (width/2, height/2))
+
+    global frame
+    frame = (frame + 1) % 12
+    image(explosionImages[frame], (spaceship.posX, spaceship.posY))
   elif randint(1, 100) <= 3:
     enemies.append(Enemy(width, height))
 
