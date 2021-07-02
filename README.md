@@ -1,7 +1,9 @@
 # SPACE INVADERS 👾
 ## by Oscar Gonzalez, Blanca Ruiz and Pol Tedesko
 
-To test this game, clone this repository with:
+<img src="./assets/demo.webp" style="max-width: 400px"></img>
+
+To run this game, clone this repository with:
 ```bash
 $ git clone https://github.com/poltm13/space-invaders.git
 $ cd space-invaders
@@ -22,4 +24,4 @@ $ brew install glfw
 $ pip install p5 --user
 ```
 
-To play the game just run the sketch.py script
+To play the game just run the *sketch.py* script

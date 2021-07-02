@@ -27,7 +27,7 @@ def imagesPreload():
   startImg = load_image('./assets/start-text.png')
 
   global spaceInvImg
-  spaceInvImg = load_image('./assets/Title2.png')
+  spaceInvImg = load_image('./assets/Title.png')
 
   global gameOverImg
   gameOverImg = load_image('./assets/GameOver.png')
@@ -107,7 +107,14 @@ def game():
 
     global frame
     frame = (frame + 1) % 12
-    image(explosionImages[frame], (spaceship.posX, spaceship.posY))
+    image(
+      explosionImages[frame],
+      (
+        spaceship.posX + randint(-spaceship.size/2, spaceship.size/2),
+        spaceship.posY + randint(-spaceship.size/2, spaceship.size/2)
+      )
+    )
+
   elif randint(1, 100) <= 3:
     enemies.append(Enemy(width, height))
 
